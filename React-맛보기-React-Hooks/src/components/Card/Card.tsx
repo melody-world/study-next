@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useEffect, useState } from "react";
 
 import styles from "./Card.module.scss";
 
@@ -24,7 +24,11 @@ const Card = (props: CardProps) => {
   const { title, clickCount } = props;
   const [count, dispatch] = useReducer(reducer, clickCount);
 
-  return (
+  useEffect(() => {
+    console.log("useEffect : ", count);
+  });
+
+  https: return (
     <div className={styles.cardItem}>
       <div>
         <p>{title}</p>
