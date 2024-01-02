@@ -1,0 +1,11 @@
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+
+  .cardList {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+  }
+}
