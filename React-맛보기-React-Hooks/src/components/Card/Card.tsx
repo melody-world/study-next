@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer } from "react";
 
 import styles from "./Card.module.scss";
 
@@ -7,15 +7,31 @@ type CardProps = {
   clickCount: number;
 };
 
+type Action = "INCREMENT" | "DECREMENT";
+
+const reducer = (clickCount: number, action: Action) => {
+  switch (action) {
+    case "INCREMENT":
+      return clickCount + 1;
+    case "DECREMENT":
+      return clickCount - 1;
+    default:
+      return clickCount;
+  }
+};
+
 const Card = (props: CardProps) => {
   const { title, clickCount } = props;
-  const [count, setCount] = useState(clickCount);
+  const [count, dispatch] = useReducer(reducer, clickCount);
 
   return (
-    //
-    <div className={styles.cardItem} onClick={() => setCount(count + 1)}>
+    <div className={styles.cardItem}>
       <div>
         <p>{title}</p>
+        <p>
+          <button onClick={() => dispatch("INCREMENT")}>+</button>
+          <button onClick={() => dispatch("DECREMENT")}>-</button>
+        </p>
         <p>
           클릭 : <span>{count}</span>
         </p>
@@ -25,34 +41,3 @@ const Card = (props: CardProps) => {
 };
 
 export default Card;
-
-/**
- * useState 예제
- */
-// import { useState } from "react";
-
-// import styles from "./Card.module.scss";
-
-// type CardProps = {
-//   title: string;
-//   clickCount: number;
-// };
-
-// const Card = (props: CardProps) => {
-//   const { title, clickCount } = props;
-//   const [count, setCount] = useState(clickCount);
-
-//   return (
-//     //
-//     <div className={styles.cardItem} onClick={() => setCount(count + 1)}>
-//       <div>
-//         <p>{title}</p>
-//         <p>
-//           클릭 : <span>{count}</span>
-//         </p>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Card;
