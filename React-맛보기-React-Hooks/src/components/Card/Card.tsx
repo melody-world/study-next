@@ -29,7 +29,7 @@ const Card = (props: CardProps) => {
 
   useEffect(() => {
     console.log("Card click count : ", count);
-  });
+  }, [count]);
 
   https: return (
     <div className={styles.cardItem}>
