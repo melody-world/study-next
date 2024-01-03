@@ -31,7 +31,7 @@ const Card = (props: CardProps) => {
     console.log("Card click count : ", count);
   });
 
-  return (
+  https: return (
     <div className={styles.cardItem}>
       <div>
         <p>{title}</p>
