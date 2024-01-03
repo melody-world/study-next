@@ -1,6 +1,7 @@
 import { useState, useReducer, useEffect } from "react";
 
 import styles from "./Card.module.scss";
+import Manual from "../Manual/Manual";
 
 type CardProps = {
   title: string;
@@ -23,26 +24,23 @@ const reducer = (clickCount: number, action: Action) => {
 const Card = (props: CardProps) => {
   const { title, clickCount } = props;
   const [count, dispatch] = useReducer(reducer, clickCount);
-
-  // 카운트 되지 않아야되는 상태
-  const [notCount, setNotCount] = useState(0);
+  const [cardStatus, setStatus] = useState("");
 
   useEffect(() => {
-    console.log("Card click count : ", count);
+    // console.log("Card click count : ", count);
   }, [count]);
 
-  https: return (
+  return (
     <div className={styles.cardItem}>
       <div>
         <p>{title}</p>
         <p>
           <button onClick={() => dispatch("INCREMENT")}>+</button>
           <button onClick={() => dispatch("DECREMENT")}>-</button>
-          <button onClick={() => setNotCount(notCount + 1)}>X</button>
+          <button onClick={() => setStatus("X")}>X</button>
         </p>
-        <p>
-          클릭 : <span>{count}</span>
-        </p>
+
+        <Manual clickCount={count} cardStatus={cardStatus} />
       </div>
     </div>
   );
