@@ -1,5 +1,3 @@
-import React from "react";
-
 import styles from "./Card.module.scss";
 
 type CardProps = {
@@ -10,6 +8,7 @@ const Card = (props: CardProps) => {
   const { title } = props;
 
   return (
+    //
     <div className={styles.cardItem}>
       <div>{title}</div>
     </div>
