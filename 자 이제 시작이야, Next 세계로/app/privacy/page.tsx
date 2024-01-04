@@ -1,61 +1,49 @@
-import styles from "./pricacy.module.css";
+"use client";
 
-// export default function Privacy() {
-//   return (
-//     <main>
-//       <div className={styles.container}>
-//         <h2 className={styles.title}>개인정보 처리방침</h2>
-//         <p className={styles.content}>
-//           개인정보 처리방침이란 이용자의 소중한 개인정보를 보호하여 안심하고
-//           서비스를 이용할 수 있도록 회사가 서비스를 운영함에 있어 준수해야 할
-//           지침을 말합니다. 우리는 사용자의 개인정보를 존중하며 보호하기 위해
-//           최선을 다하고 있습니다. <br />
-//           우리는 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를
-//           보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기
-//           위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.
-//         </p>
+import { useEffect, useState } from "react";
+import styles from "./privacy.module.css";
 
-//         <button type="button">더보기</button>
+export default function Privacy() {
+  const [content, setContent] = useState<string>();
+  const [active, setActive] = useState<boolean>(false);
 
-//         <p className={styles.content}>
-//           개인정보 처리방침이란 이용자의 소중한 개인정보를 보호하여 안심하고
-//           서비스를 이용할 수 있도록 회사가 서비스를 운영함에 있어 준수해야 할
-//           지침을 말합니다. 우리는 사용자의 개인정보를 존중하며 보호하기 위해
-//           최선을 다하고 있습니다. <br />
-//           우리는 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를
-//           보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기
-//           위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.
-//         </p>
-//       </div>
-//     </main>
-//   );
-// }
+  // 개인 정보 처리방침 데이터 호출
+  const getPrivacyData = async () => {
+    await fetch(`https://api.api-ninjas.com/v1/loremipsum?paragraphs=` + 10, {
+      method: "GET",
+      headers: {
+        "X-Api-Key": "MoP6QUtCzVcry1veVMYm0Q==bjqHqorrqpqid7C7",
+      },
+    })
+      .then((res) => res.json())
+      .then((result) => setContent(result.text));
+  };
 
-function Privacy(props: any) {
+  // 더보기 버튼 클릭 시
+  const handleMoreView = () => {
+    setActive((prev) => !prev);
+  };
+
+  useEffect(() => {
+    getPrivacyData();
+  }, []);
+
   return (
     <main>
       <div className={styles.container}>
-        <h1>{props.now}</h1>
         <h2 className={styles.title}>개인정보 처리방침</h2>
-        <p className={styles.content}>
-          개인정보 처리방침이란 이용자의 소중한 개인정보를 보호하여 안심하고
-          서비스를 이용할 수 있도록 회사가 서비스를 운영함에 있어 준수해야 할
-          지침을 말합니다. 우리는 사용자의 개인정보를 존중하며 보호하기 위해
-          최선을 다하고 있습니다. <br />
-          우리는 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를
-          보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기
-          위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.
+        <p className={`${styles.content} ${active ? styles.active : ""}`}>
+          {content}
         </p>
+
+        <button
+          type="button"
+          className={styles.moreView}
+          onClick={() => handleMoreView()}
+        >
+          {active ? "닫기" : "더보기"}
+        </button>
       </div>
     </main>
   );
 }
-
-export async function getStaticProps() {
-  console.log("ssg");
-  return {
-    props: { now: performance.now() },
-  };
-}
-
-export default Privacy;
