@@ -71,19 +71,19 @@ export async function POST(req: Request) {
     //   _id: new ObjectId(`65dc90043832911cb805633a`),
     // });
 
-    const roleList = await Roles.find(
-      {},
-      {
-        _id: 0,
-        roleName: 1,
-      }
-    )
-      .lean()
-      .sort({ roleName: 1 });
+    // const roleList = await Roles.find(
+    //   {},
+    //   {
+    //     _id: 0,
+    //     roleName: 1,
+    //   }
+    // )
+    //   .lean()
+    //   .sort({ roleName: 1 });
 
     return Response.json({
       message: "OK",
-      result: roleList,
+      // result: roleList,
     });
   } catch (error) {
     return Response.error();
